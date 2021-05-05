@@ -1,9 +1,12 @@
 asect 0x00
-ldi r0, 0xff
-ldi r1, 12
-st r0, r1
+# r0, 0x00
+#ldi r1, 0b10010001
+#st r0, r1
 
-ld r0, r2 
+#ldi r0, 0x00
+#ldi r1, 0b10100110
+#st r0, r1
+
 
 halt
 end
