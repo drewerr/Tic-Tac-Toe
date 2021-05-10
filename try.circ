@@ -119,6 +119,7 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <a name="clabelfont" val="SansSerif plain 12"/>
     <wire from="(680,360)" to="(680,370)"/>
     <wire from="(680,600)" to="(680,610)"/>
+    <wire from="(760,200)" to="(760,210)"/>
     <wire from="(520,360)" to="(520,370)"/>
     <wire from="(520,600)" to="(520,610)"/>
     <wire from="(620,780)" to="(620,790)"/>
@@ -148,10 +149,10 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(70,200)" to="(70,210)"/>
     <wire from="(110,240)" to="(110,250)"/>
     <wire from="(320,290)" to="(320,300)"/>
-    <wire from="(830,160)" to="(830,190)"/>
     <wire from="(500,790)" to="(600,790)"/>
     <wire from="(130,180)" to="(130,210)"/>
     <wire from="(120,50)" to="(410,50)"/>
+    <wire from="(830,160)" to="(830,200)"/>
     <wire from="(250,240)" to="(710,240)"/>
     <wire from="(460,150)" to="(470,150)"/>
     <wire from="(510,440)" to="(520,440)"/>
@@ -231,7 +232,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(80,70)" to="(180,70)"/>
     <wire from="(390,150)" to="(430,150)"/>
     <wire from="(410,890)" to="(450,890)"/>
-    <wire from="(760,190)" to="(760,210)"/>
     <wire from="(530,870)" to="(550,870)"/>
     <wire from="(350,760)" to="(380,760)"/>
     <wire from="(530,870)" to="(530,990)"/>
@@ -266,7 +266,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(150,220)" to="(170,220)"/>
     <wire from="(370,1090)" to="(380,1090)"/>
     <wire from="(510,350)" to="(520,350)"/>
-    <wire from="(760,190)" to="(830,190)"/>
     <wire from="(50,170)" to="(50,220)"/>
     <wire from="(350,350)" to="(360,350)"/>
     <wire from="(350,590)" to="(360,590)"/>
@@ -283,6 +282,7 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(200,270)" to="(320,270)"/>
     <wire from="(350,690)" to="(720,690)"/>
     <wire from="(640,800)" to="(700,800)"/>
+    <wire from="(760,200)" to="(820,200)"/>
     <wire from="(420,1020)" to="(720,1020)"/>
     <wire from="(240,230)" to="(410,230)"/>
     <wire from="(230,90)" to="(270,90)"/>
@@ -319,7 +319,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(650,550)" to="(650,560)"/>
     <wire from="(650,310)" to="(650,320)"/>
     <wire from="(110,240)" to="(170,240)"/>
-    <wire from="(820,160)" to="(820,170)"/>
     <wire from="(870,210)" to="(870,220)"/>
     <wire from="(700,820)" to="(700,950)"/>
     <wire from="(150,210)" to="(150,220)"/>
@@ -342,6 +341,7 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(640,780)" to="(640,800)"/>
     <wire from="(430,350)" to="(460,350)"/>
     <wire from="(430,590)" to="(460,590)"/>
+    <wire from="(820,160)" to="(820,200)"/>
     <wire from="(270,350)" to="(300,350)"/>
     <wire from="(270,590)" to="(300,590)"/>
     <wire from="(330,740)" to="(350,740)"/>
@@ -481,7 +481,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <comp lib="1" loc="(400,1020)" name="Controlled Buffer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(820,170)" name="Ground"/>
     <comp lib="0" loc="(410,460)" name="Splitter">
       <a name="fanout" val="3"/>
       <a name="incoming" val="3"/>
@@ -662,6 +661,7 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
+    <comp lib="0" loc="(830,200)" name="Ground"/>
     <comp lib="0" loc="(900,190)" name="Splitter">
       <a name="facing" val="south"/>
       <a name="fanout" val="8"/>
@@ -709,8 +709,8 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     </comp>
     <comp lib="4" loc="(690,870)" name="ROM">
       <a name="contents">addr/data: 8 8
-d0 f3 d1 a1 a1 d1 a1 a1
-d4
+d0 f3 d1 a1 a1 d1 a6 a1
+d1 9b a1 d4
 </a>
     </comp>
     <comp lib="0" loc="(290,580)" name="Splitter">
