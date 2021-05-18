@@ -19,30 +19,8 @@ macro reset/2
 	st $1, $2
 mend
 
-macro clear/2
-	ldi $2, 0 
-	
-	ldi $1, 0x00
-	st $1, $2
-	ldi $1, 0x04
-	st $1, $2
-	ldi $1, 0x08
-	st $1, $2
-	ldi $1, 0x01
-	st $1, $2
-	ldi $1, 0x05
-	st $1, $2
-	ldi $1, 0x09
-	st $1, $2
-	ldi $1, 0x02
-	st $1, $2
-	ldi $1, 0x06
-	st $1, $2
-	ldi $1, 0x0A
-	st $1, $2
-mend
-
 macro proverka/2
+
 	ldi $2, 0x00 
 	ldi $1, 0x01
 	ld $1, $1
@@ -78,6 +56,7 @@ macro proverka/2
 			st $1, $2
 		fi
 	fi
+
 #------------------------
 	ldi $2, 0x08 
 	ldi $1, 0x09
@@ -240,10 +219,9 @@ macro proverka/2
 
 mend
 #######################################################
-asect 0x00
+asect 0x0C
 ldi r0, 0xf3
-clear r1, r2
-reset r0, r1
+##reset r0, r1
 
 ldi r3, 3
 while 
