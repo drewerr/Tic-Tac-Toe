@@ -219,69 +219,108 @@ macro proverka/2
 
 mend
 #######################################################
-asect 0x0C
+asect 0x0b
 ldi r0, 0xf3
-##reset r0, r1
+#reset r0, r1
+
+ldi r2, 1 # pushing 1-s to 0x03 and 0x07 for the AI loop to work
+ldi r1, 3
+st r1,r2
+ldi r1, 7
+st r1,r2
 
 ldi r3, 3
 while 
 	tst r3
-	ld r0, r1
+new:ld r0, r1
 	
 	ldi r2, 128
 	sub r1, r2
 	if 
-		tst r2 ##check ready flag
+		tst r2 #check ready flag
 	is pl
 		ldi r1, 2 # if ready we need to write this value in table (address like 0b0000xxxx) xxxx-cell address
-		st r2, r1
+		
+		ld r2,r3  # if already occupied, do not write
+		if
+			tst r3
+		is eq
+			st r2, r1
+			ldi r3, 3
+		else 
+			br new
+		fi
 		
 		shla r2 #making value to send it on tttc
 		shla r2
 		
-		ldi r1, 128 #making score
+		### TODO CHECK: IF GAME NOT OVER AFTER HUMAN - SEND CROSS
+		### AND MAKE COMPUTER MOVE
+		ldi r1, 130 # making score AND making symbolid (cross)
 		add r1, r2 
 		
-		ldi r1, 2  #making symbolid (cross)
-		add r1, r2
-		
 		st r0, r2  # sending it on tttc
-	else
-		proverka r1, r2
-		ldi r2, 1
-		sub r1, r2
-		if
-			tst r2
-		is eq
-		else
 		
-		fi
-		
-		ldi r1, 0x05
-		ld r1, r1
-		ldi r2, 2
-		sub r1, r2
-		if
+		ldi r1, 0x00 # AI section
+		ld r1,r2
+		while 
 			tst r2
-		is eq
-			ldi r1, 0x04
-			ld r1, r1
-			ldi r2, 1
-			sub r1, r2
-			if
-				tst r2
-			is eq
+		stays ne
+			inc r1
+			ld r1,r2
+		wend # now in r1 we have address to put our nought to
+		
+		shla r1
+		shla r1
+		
+			### TODO CHECK: IF GAME NOT OVER AFTER AI - SEND NOUGHT
+			ldi r2,129 # making score AND making symbolid (nought)
+			add r1,r2
 			
-			else
-				ldi r1, 0b10100001
-				st r0, r1
-				ldi r1, 0x00
-				ldi r2, 1
-				st r1, r2
-			fi	
-		else		
-		fi
+			st r0,r2 # sending it on tttc
+			### TODO CHECK: ELSE SEND NOUGHT AND RESULT
+			
+			
+		### TODO CHECK:ELSE (IF GAME OVER AFTER HUMAN) - SEND CROSS
+		### AND RESULT 
+
+	else
 	fi
 wend
 halt
 end
+
+#proverka r1, r2
+#		ldi r2, 1
+#		sub r1, r2
+#		if
+#			tst r2
+#		is eq
+#		else
+#		
+#		fi
+#		
+#		ldi r1, 0x05
+#		ld r1, r1
+#		ldi r2, 2
+#		sub r1, r2
+#		if
+#			tst r2
+#		is eq
+#			ldi r1, 0x04
+#			ld r1, r1
+#			ldi r2, 1
+#			sub r1, r2
+#			if
+#				tst r2
+#			is eq
+#			
+#			else
+#				ldi r1, 0b10100001
+#				st r0, r1
+#				ldi r1, 0x00
+#				ldi r2, 1
+#				st r1, r2
+#			fi	
+#		else		
+#		fi
