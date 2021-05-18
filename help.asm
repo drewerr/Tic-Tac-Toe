@@ -221,7 +221,7 @@ mend
 #######################################################
 asect 0x0b
 ldi r0, 0xf3
-#reset r0, r1
+reset r0, r1
 
 ldi r2, 1 # pushing 1-s to 0x03 and 0x07 for the AI loop to work
 ldi r1, 3
@@ -241,34 +241,43 @@ new:ld r0, r1
 	is pl
 		ldi r1, 2 # if ready we need to write this value in table (address like 0b0000xxxx) xxxx-cell address
 		
-		ld r2,r3  # if already occupied, do not write
+		ld r2, r3  # if already occupied, do not write
 		if
 			tst r3
 		is eq
 			st r2, r1
 			ldi r3, 3
+			
+			
+			############### F I X E D (p.s. this code was out of if)
+			shla r2 #making value to send it on tttc
+			shla r2
+		
+			### TODO CHECK: IF GAME NOT OVER AFTER HUMAN - SEND CROSS
+			### AND MAKE COMPUTER MOVE
+			ldi r1, 130 # making score AND making symbolid (cross)
+			add r1, r2 
+		
+			st r0, r2  # sending it on tttc
+			############### F I X E D
 		else 
 			br new
 		fi
 		
-		shla r2 #making value to send it on tttc
-		shla r2
-		
-		### TODO CHECK: IF GAME NOT OVER AFTER HUMAN - SEND CROSS
-		### AND MAKE COMPUTER MOVE
-		ldi r1, 130 # making score AND making symbolid (cross)
-		add r1, r2 
-		
-		st r0, r2  # sending it on tttc
+
 		
 		ldi r1, 0x00 # AI section
-		ld r1,r2
+		ld r1, r2
 		while 
 			tst r2
 		stays ne
 			inc r1
-			ld r1,r2
+			ld r1, r2
 		wend # now in r1 we have address to put our nought to
+		############### F I X E D (p.s. added these commands, to write nought in table)
+		ldi r2, 1 
+		st r1, r2
+		############### F I X E D
 		
 		shla r1
 		shla r1
@@ -277,9 +286,8 @@ new:ld r0, r1
 			ldi r2,129 # making score AND making symbolid (nought)
 			add r1,r2
 			
-			st r0,r2 # sending it on tttc
+			st r0, r2 # sending it on tttc
 			### TODO CHECK: ELSE SEND NOUGHT AND RESULT
-			
 			
 		### TODO CHECK:ELSE (IF GAME OVER AFTER HUMAN) - SEND CROSS
 		### AND RESULT 
