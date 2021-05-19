@@ -225,14 +225,28 @@ reset r0, r1
 
 ldi r2, 1 # pushing 1-s to 0x03 and 0x07 for the AI loop to work
 ldi r1, 3
-st r1,r2
+st r1, r2
 ldi r1, 7
-st r1,r2
+st r1, r2
 
 ldi r3, 3
 while 
 	tst r3
-new:ld r0, r1
+	
+	new:
+	ldi r1, 0xf5
+	ld r1, r1
+	ldi r2, 14
+	sub r1, r2
+	if 
+		tst r2
+	is eq
+		ldi r1, 0b11000000
+		st r0, r1
+		br bye
+	fi 
+
+	ld r0, r1
 	
 	ldi r2, 128
 	sub r1, r2
@@ -246,6 +260,16 @@ new:ld r0, r1
 			tst r3
 		is eq
 			st r2, r1
+			
+			
+			ldi r1, 0x0f
+			ld r1, r1
+			ldi r3, 2
+			add r1, r3
+			
+			ldi r1, 0x0f
+			st r1, r3
+			
 			ldi r3, 3
 			
 			
@@ -260,6 +284,9 @@ new:ld r0, r1
 		
 			st r0, r2  # sending it on tttc
 			############### F I X E D
+			
+
+			
 		else 
 			br new
 		fi
@@ -291,10 +318,20 @@ new:ld r0, r1
 			
 		### TODO CHECK:ELSE (IF GAME OVER AFTER HUMAN) - SEND CROSS
 		### AND RESULT 
-
+			
+			ldi r1, 0x0f
+			ld r1, r1
+			ldi r2, 0x01		
+			add r1, r2
+			
+			ldi r1, 0x0f
+			st r1, r2
 	else
 	fi
 wend
+
+bye:
+
 halt
 end
 
