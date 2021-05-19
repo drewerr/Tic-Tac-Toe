@@ -167,54 +167,7 @@ macro proverka/2
 		fi
 	fi
 #------------------------
-	ldi $2, 0x00
-	if 
-		tst $2
-	is ne
-		ldi $2, 0x04
-		if 
-			tst $2
-		is ne
-			ldi $2, 0x08
-			if 
-				tst $2
-			is ne
-				ldi $2, 0x01
-				if 
-					tst $2
-				is ne
-					ldi $2, 0x05
-					if 
-						tst $2
-					is ne
-						ldi $2, 0x09
-						if 
-							tst $2
-						is ne
-							ldi $2, 0x02
-							if 
-								tst $2
-							is ne
-								ldi $2, 0x06
-								if 
-									tst $2
-								is ne
-									ldi $2, 0x06
-									if 
-										tst $2
-									is ne
-										ldi $1, 0xf5
-										ldi $2, 0x03
-										st $1, $2
-									fi
-								fi
-							fi
-						fi
-					fi
-				fi
-			fi
-		fi
-	fi
+
 #------------------------
 
 mend
@@ -234,14 +187,16 @@ while
 	tst r3
 	
 	new:
-	ldi r1, 0xf5
+	#proverka r1, r2
+	
+	ldi r1, 0x0f
 	ld r1, r1
 	ldi r2, 14
 	sub r1, r2
 	if 
 		tst r2
-	is eq
-		ldi r1, 0b11000000
+	is pl
+		ldi r1, 0b11111100
 		st r0, r1
 		br bye
 	fi 
@@ -334,38 +289,3 @@ bye:
 
 halt
 end
-
-#proverka r1, r2
-#		ldi r2, 1
-#		sub r1, r2
-#		if
-#			tst r2
-#		is eq
-#		else
-#		
-#		fi
-#		
-#		ldi r1, 0x05
-#		ld r1, r1
-#		ldi r2, 2
-#		sub r1, r2
-#		if
-#			tst r2
-#		is eq
-#			ldi r1, 0x04
-#			ld r1, r1
-#			ldi r2, 1
-#			sub r1, r2
-#			if
-#				tst r2
-#			is eq
-#			
-#			else
-#				ldi r1, 0b10100001
-#				st r0, r1
-#				ldi r1, 0x00
-#				ldi r2, 1
-#				st r1, r2
-#			fi	
-#		else		
-#		fi
