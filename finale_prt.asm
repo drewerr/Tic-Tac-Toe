@@ -85,18 +85,6 @@ subr:
 # r2 - cyclic const (8) / i-th mem value
 # r3 - res (if needed) / comparing values
 
-	ldi r0, cnt
-	ld r0,r0
-	ldi r1, 5
-	
-	if # checking for tie
-		cmp r0,r1
-	is eq
-		ldi r3, 192
-		ldi r0, 0xf3
-		br end
-	fi
-	
 	ldi r0, 0
 	ldi r2, 8
 	ldi r1, mem
@@ -121,12 +109,25 @@ subr:
 				br end
 			fi
 		fi
+		
 			   # if we are here - no one won due to i-th mem
 		inc r0 # setting for next iteration
 		inc r1
 		ldi r2, 8
 	wend
-	ldi r3, 128 # if we are here - no one has won
+	# if we are here, no one won
+	ldi r0, cnt
+	ld r0,r0
+	ldi r1, 5 # if there are 5 crosses - it's a tie
+	if
+		cmp r0,r1
+	is eq
+		ldi r3, 192
+		ldi r0, 0xf3
+		br end
+	fi
+	
+	ldi r3, 128 # if we are here - no one has won, no draw
 	ldi r0, 0xf3
 end:
 	pop r1 # taking symbol_id and moved address
