@@ -1,12 +1,18 @@
-### PRE-EXECUTION SETTINGS   ###
-### FOR GSDD NOT TO SHOW WIN ###
+###  PRE-EXECUTION SETTINGS  ###
 ################################
-	asect 0x00
+	asect 0x00 # telling gsdd not to show anything
 	ldi r0, 0xf3
 	ldi r1, 0b10000000
 	st r0, r1
 	br st
-
+	
+	addsp 0x80 # moving sp from 0xf*
+	
+	ldi r0, 0x03 # adjusting memory for AI to work
+	ldi r1, 1
+	st r0, r1
+	ldi r0, 0x07
+	st r0,r1
 
 ##########################
 # 	PUT-IN SUBROUTINE    #
@@ -54,18 +60,16 @@ subr:
 			ld r2,r2 # r2 has i-th symbol of that row
 			dec r2
 			if
-			tst r2
+				tst r2
 			is ge # if we have nought or cross
-			inc r3
-			if
-			tst r2
-			is gt # if we have cross
-			inc r3
-			inc r3
-			inc r3
-			# else
-			fi
-			# else if we have nothing
+				inc r3
+				if
+					tst r2
+				is gt # if we have cross
+					inc r3
+					inc r3
+					inc r3
+				fi
 			fi
 			inc r1
 		wend
@@ -79,11 +83,6 @@ subr:
 	wend
 	
 ##### CHECK RESULT - PART 2 #####
-# here we have 8 values in mem waiting to be checked
-# r0 - how many mems are already checked
-# r1 - mem address
-# r2 - cyclic const (8) / i-th mem value
-# r3 - res (if needed) / comparing values
 
 	ldi r0, 0
 	ldi r2, 8
@@ -130,6 +129,7 @@ subr:
 	ldi r3, 128 # if we are here - no one has won, no draw
 	ldi r0, 0xf3
 end:
+### WRITING - PART 3 ###
 	pop r1 # taking symbol_id and moved address
 	pop r2 # back into registers
 	
@@ -160,14 +160,6 @@ end:
 #################
 
 st:
-	addsp 0x80 # moving sp from 0xf*
-	
-	ldi r0, 0x03 # adjusting memory for AI to work
-	ldi r1, 1
-	st r0, r1
-	ldi r0, 0x07
-	st r0,r1
-	
 	ldi r0, 0xf3 # IO address
 	
 	while # endless while
